@@ -87,7 +87,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
                             if(xAcc>3){
                                 left = true;
                             }else{left = false;}
-                            if(yAcc<1){
+                            if(yAcc<2){
                                 down = true;
                             }else {down = false;}
                             if(yAcc>7){
@@ -244,7 +244,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
                             }
 
 
-                            textViewOut.setText("Right: " + right+" Xacc: " +xAcc+ " text:     "+ sentence);
+                            textViewOut.setText("Your Text: " + sentence);
                             lastTime=System.currentTimeMillis();
                             return true;
                         }
