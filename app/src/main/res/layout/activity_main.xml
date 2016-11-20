@@ -26,7 +26,7 @@
         <Button
             android:text="@string/keyPressText"
             android:layout_width="match_parent"
-            android:layout_height="350dp"
+            android:layout_height="250dp"
             android:id="@+id/keyPress"
             android:layout_marginTop="30dp"
             android:textSize="50sp"
@@ -39,9 +39,9 @@
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
             android:layout_centerHorizontal="true"
-            android:layout_marginBottom="50dp"
+            android:layout_marginBottom="90dp"
             android:id="@+id/keyOut"
-            android:textSize="30sp"/>
+            android:textSize="15sp"/>
 
         <TextView
             android:text="Z: "
