@@ -26,6 +26,12 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
     public double xVel, yVel, zVel;
     public double xPos, yPos, zPos;
     private double lastTime = System.currentTimeMillis();
+    boolean left, right, up, down;
+    String sentence = "";
+    int xCount, yCount;
+
+    char[][] alphabet = new char[][] {{'a','b','c','d','e','f','g'},{'h','i','j','k','l','m','n'},
+                                        {'o','p','q','r','s','t'},{'u','v','w','x','y','z'}};
 
 
 
@@ -37,7 +43,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         //create sensor manager
         SM = (SensorManager)getSystemService(SENSOR_SERVICE);
         //accelerometer sensor
-        mySensor = SM.getDefaultSensor(Sensor.TYPE_LINEAR_ACCELERATION);
+        mySensor = SM.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
         //register sensor listener
 
         SM.registerListener(this, mySensor, SensorManager.SENSOR_DELAY_NORMAL);
@@ -62,16 +68,62 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
                     new RelativeLayout.OnTouchListener() {
                         public boolean onTouch(View v, MotionEvent m) {
                             double deltaTime= (System.currentTimeMillis() - lastTime);
-                            if (deltaTime<25.0){
-                                deltaTime=0.0;
+
+
+
+                            if(xAcc<-3){
+                                right = true;
+                            }else {right = false;}
+                            if(xAcc>3){
+                                left = true;
+                            }else{left = false;}
+                            if(yAcc-1<-2){
+                                down = true;
+                            }else {down = false;}
+                            if(yAcc>5){
+                                up = true;
+                            }else{up = false;}
+
+
+                            try{
+                                Thread.sleep(200);
+                            }catch (Exception e) {}
+
+
+                             if(down==true){
+                                yCount--;
+                                sentence += " "+alphabet[yCount][0];
+
+                                }
+                            if(right==true){
+                                xCount++;
+                                sentence += " "+alphabet[yCount][xCount];
                             }
-                            xVel += (xAcc * deltaTime / 1000);
-                            xPos += (xVel * deltaTime / 1000);
-                            yVel += (yAcc * deltaTime / 1000);
-                            yPos += (yVel * deltaTime / 1000);
-                            zVel += (zAcc * deltaTime / 1000);
-                            zPos += (zVel * deltaTime / 1000);
-                            textViewOut.setText("X velocity: " + xVel+"  X position: " + xPos+" Y velocity: " + yVel+"  Y position: " + yPos +" Z velocity: " + zVel+"  Z position: " + zPos);
+                             if (left == true) {
+                                    xCount--;
+                                    sentence += " " + alphabet[yCount][xCount];
+                                }
+
+                            try{
+                                Thread.sleep(200);
+                            }catch (Exception e) {}
+
+
+                            if(up==true){
+                                yCount++;
+                                sentence += " "+alphabet[yCount][0];
+
+                            } if(left==true){
+                                xCount--;
+                                sentence += " "+alphabet[yCount][xCount];
+                            }
+                            if(right==true){
+                                xCount++;
+                                sentence += " "+alphabet[yCount][xCount];
+                            }
+
+
+                            textViewOut.setText("Right: " + right+" Xacc: " +xAcc+ " text:     "+ sentence);
                             lastTime=System.currentTimeMillis();
                             return true;
                         }
